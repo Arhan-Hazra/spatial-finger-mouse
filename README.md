@@ -243,11 +243,16 @@ ctypes.windll.user32.SetCursorPos()
 - Cursor movement automatically switches to kernel-level injection whenever a gesture click is active, enabling smooth digital drawing and CAD workflows without discontinuities.
 
 ### v4.8
-Unified every subsystem into the final production architecture. Integrated direct Windows kernel-level cursor injection (`user32.SetCursorPos`) for uninterrupted drawing, completed the Tkinter calibration wizard, finalized scale-invariant gesture recognition, dual-hand clutch mechanics, Face Blendshape eye tracking, blink-based desktop navigation, touchpad acceleration, low-latency smoothing, audio feedback, automatic MediaPipe model downloading, runtime hand swapping, and graceful resource cleanup.
+- Unified every previously developed subsystem into a single production-ready architecture.
+- Finalized the complete Tkinter setup wizard and automated calibration workflow.
+- Consolidated scale-invariant gesture recognition, dual-hand clutching, touchpad acceleration, and Face Blendshape eye tracking into a cohesive interaction engine.
+- Polished runtime configuration, automatic MediaPipe model downloading, audio feedback, and graceful resource cleanup for everyday usability.
 
 ### v4.9 (Current Stable Main)
-Completed the project's final input engine overhaul, introducing reliable continuous drawing support across graphics applications. Improved overall cursor responsiveness, click-and-drag stability, and application compatibility while maintaining the existing low-latency gesture pipeline. With drawing, desktop navigation, calibration, dual-hand clutching, and eye tracking now working together, the system reaches its first fully feature-complete milestone.
-
+- Completed the final input engine overhaul, delivering reliable continuous drawing support across graphics applications.
+- Significantly improved cursor responsiveness, click-and-drag stability, and overall application compatibility.
+- Refined the interaction pipeline for smoother handwriting, sketching, precision drawing, and general desktop control.
+- Reached the project's first fully feature-complete milestone, bringing gesture control, eye tracking, calibration, dual-hand clutching, and low-latency desktop interaction into one polished release.
 ---
 
 ### 🔮 Planned for v5.x
