@@ -61,8 +61,8 @@ Runs Hand Landmark detection and Face Blendshape (Eye Blink) recognition inside 
 ## 2. Clone the Repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git
-cd YOUR_REPO_NAME
+git clone https://github.com/Arhan-Hazra/spatial-finger-mouse.git
+cd spatial-finger-mouse
 ```
 
 ---
@@ -108,7 +108,7 @@ These models are retrieved directly from Google's official MediaPipe model repos
 
 # 📌 Highlights
 
-- ✅ Scale-invariant gesture recognition
+- ✅ Scale-invariant gesture recognition (makes the mouse more adaptable to each people)
 - ✅ Kernel-level mouse injection
 - ✅ Continuous drawing support
 - ✅ Dual-hand clutch mechanism
