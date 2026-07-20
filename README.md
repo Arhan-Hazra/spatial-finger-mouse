@@ -113,7 +113,7 @@ These models are retrieved directly from Google's official MediaPipe model repos
 - ✅ Continuous drawing support
 - ✅ Dual-hand clutch mechanism
 - ✅ Dynamic gesture normalization
-- ✅ Eye blink desktop shortcuts
+- ✅ Eye blink desktop switch (double blink to go to right desktop, triple blink to go to left desktop)
 - ✅ Left & right hand support
 - ✅ Low-latency cursor smoothing
 - ✅ Automatic MediaPipe model download
