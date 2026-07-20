@@ -232,7 +232,7 @@ Ctrl + Alt + Shift + = + Home
 - Eliminated frame drops by converting the Face Engine into a synchronous inline `IMAGE` pipeline.
 - Refactored clutch mechanics so active drag operations continue seamlessly while clutching.
 
-### v4.7 (Current Master)
+### v4.7 
 - Solved PyAutoGUI line stuttering during continuous drawing.
 - Integrated direct Windows cursor injection using:
 
@@ -241,6 +241,26 @@ ctypes.windll.user32.SetCursorPos()
 ```
 
 - Cursor movement automatically switches to kernel-level injection whenever a gesture click is active, enabling smooth digital drawing and CAD workflows without discontinuities.
+
+### v4.8.0 (Current Stable Main)
+
+The culmination of every subsystem developed throughout the project.
+
+**Major Features**
+
+- Direct Windows kernel-level cursor injection (`user32.SetCursorPos`) for uninterrupted drawing.
+- Dual-hand clutch system for infinite virtual workspace.
+- Scale & depth invariant gesture recognition.
+- Interactive Tkinter setup and calibration wizard.
+- Configurable gesture thresholds.
+- Face Blendshape eye-tracking engine.
+- Double/triple blink desktop navigation.
+- Dynamic touchpad acceleration.
+- Low-latency smoothing and debounce framework.
+- Runtime hand swapping.
+- Automatic MediaPipe model downloading.
+- Audio feedback engine.
+- Graceful shutdown and resource cleanup.
 
 ---
 
