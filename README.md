@@ -120,7 +120,142 @@ These models are retrieved directly from Google's official MediaPipe model repos
 
 ---
 
-# 👨‍💻 Developed By
+---
+
+# 📈 Version History & Evolution
+
+## v1.0 — The Beginning
+- Basic webcam mouse pointer following using hand tracking.
+
+---
+
+## v2.x — The Tracking & Stabilization Era
+
+### v2.1
+- Established the core tracking baseline using the Google MediaPipe Tasks API.
+- Implemented an Exponential Moving Average (EMA) smoothing filter.
+- Added a strict 10-frame click freeze lock (`click_lock`) for stable clicking.
+
+### v2.2
+- Introduced an active viewport margin (`margin = 100`) with `np.interp()` mapping.
+- Built a custom hardcoded hand wireframe mesh (`HAND_CONNECTIONS`).
+- Added the global debug hotkey:
+
+```
+Ctrl + Alt + D
+```
+
+### v2.3
+- Upgraded the pipeline to support simultaneous dual-hand tracking.
+- Reduced confidence thresholds to 50% to improve folded-finger detection.
+- Added runtime dominant-hand swapping:
+
+```
+Ctrl + Alt + H
+```
+
+- Replaced the heavy wireframe overlay with a lightweight **"Just Dots"** diagnostic mode.
+
+### v2.4
+- Replaced discrete clicks with persistent `mouseDown()` / `mouseUp()` logic.
+- Added native drag-and-drop support.
+- Removed movement freeze during click-hold.
+
+### v2.5
+- Designed a complete hysteresis & debounce framework.
+- Added independent engage/release thresholds:
+
+```
+click_in  = 25
+click_out = 45
+```
+
+- Introduced a 3-frame release memory buffer.
+- Added a 2-pixel movement deadzone to eliminate micro-jitter.
+
+---
+
+## v3.x — The Touchpad & Geometric Scaling Engine
+
+### v3.1
+- Rebuilt the cursor engine into a relative touchpad architecture (`dx`, `dy`).
+- Added dynamic acceleration based on hand velocity.
+
+### v3.2 – v3.3
+- Developed the Dual-Hand Mechanical Clutch.
+- Added secondary-hand fist detection (`is_fist()`).
+- Allowed users to temporarily disengage cursor mapping and reset workspace position naturally.
+
+### v3.4
+- Introduced Mathematical Scale & Depth Invariance.
+- Normalized every gesture against the dynamic hand reference vector (`hand_size`).
+- Eliminated dependency on camera distance.
+
+### v3.5
+- Changed cursor anchor from the index fingertip to the middle-finger MCP joint.
+- Eliminated cursor drift during pinch gestures.
+- Tightened release ratio tolerance to improve hold reliability.
+
+### v3.6
+- Added threaded audio feedback using `winsound`.
+- Implemented confirmation/error tones.
+- Wrapped the application in graceful `KeyboardInterrupt` cleanup with a proper `finally` block.
+
+---
+
+## v4.x — Multi-Modal Synchronization & OS Integration *(Current)*
+
+### v4.1 – v4.2
+- Replaced terminal configuration with a complete **Tkinter Setup Wizard**.
+- Built an interactive calibration overlay.
+- Added a rolling 1-second sampling queue to automatically determine personalized gesture thresholds.
+
+### v4.3
+- Designed an experimental 3-finger / 4-finger gesture engine.
+- Added native Windows Virtual Desktop navigation.
+
+```
+Ctrl + Win + Left
+Ctrl + Win + Right
+```
+
+### v4.4
+- Replaced finger swipes with MediaPipe Face Blendshape tracking.
+- Developed synchronized double-blink and triple-blink gesture recognition.
+- Added a hidden developer unlock sequence:
+
+```
+Ctrl + Alt + Shift + = + Home
+```
+
+### v4.5 – v4.6
+- Eliminated frame drops by converting the Face Engine into a synchronous inline `IMAGE` pipeline.
+- Refactored clutch mechanics so active drag operations continue seamlessly while clutching.
+
+### v4.7 (Current Master)
+- Solved PyAutoGUI line stuttering during continuous drawing.
+- Integrated direct Windows cursor injection using:
+
+```python
+ctypes.windll.user32.SetCursorPos()
+```
+
+- Cursor movement automatically switches to kernel-level injection whenever a gesture click is active, enabling smooth digital drawing and CAD workflows without discontinuities.
+
+---
+
+### 🔮 Planned for v5.x
+
+- Configurable gesture profiles
+- Multi-monitor awareness
+- Custom macro gesture recording
+- Scroll & zoom gesture engine
+- Plugin architecture
+- Linux support through native X11/Wayland injection
+- GPU-accelerated processing pipeline
+- Collaborations are welcome!!
+
+# 👨‍💻 Developed & Maintained By
 
 **Arhan Hazra**
 
