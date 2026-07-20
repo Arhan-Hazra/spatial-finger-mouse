@@ -43,3 +43,17 @@ Unlike standard tutorial clones that rely on absolute pixel distances and laggy 
    ```bash
    git clone [https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git](https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git)
    cd YOUR_REPO_NAME
+
+
+   d YOUR_REPO_NAME
+Install Dependencies:
+
+Bash
+pip install opencv-python mediapipe pyautogui keyboard winsound
+Run the Initialization Wizard:
+
+Bash
+python main.py
+Note: On the initial boot, the engine will automatically download the required optimized task assets (hand_landmarker.task and face_landmarker.task) from the secure Google MediaPipe storage API.
+
+Developed with 💻 and ☕ by Arhan Hazra
