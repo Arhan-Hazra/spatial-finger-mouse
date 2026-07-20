@@ -26,8 +26,12 @@ _core_logic_tag = "MOUSE POINTER ~ MADE BY ARHAN"
 pyautogui.PAUSE = 0
 pyautogui.FAILSAFE = False
 
-def win32_move_mouse(x, y):
-    ctypes.windll.user32.SetCursorPos(x, y)
+# --- HARDWARE-LEVEL WINDOWS MOUSE INJECTION CONFIG ---
+def win32_move_mouse(x, y, s_width, s_height):
+    abs_x = int((x * 65535) / s_width)
+    abs_y = int((y * 65535) / s_height)
+    
+    ctypes.windll.user32.mouse_event(0x8001, abs_x, abs_y, 0, 0)
 
 # --- PERSISTENCE FLAG ---
 EYE_TRACKING_FLAG_FILE = ".eye_engine_unlocked"
@@ -68,13 +72,13 @@ def trigger_desktop_change(action_type):
     threading.Thread(target=execute, daemon=True).start()
 
 # --- ASYNC FACE TRACKING CALLBACK ---
-# Decoupled to avoid structural thread blocks with finger tracking pipelines
 def face_callback(result, output_image, timestamp_ms):
     global blink_detected, last_blink_state, blink_counter, last_blink_time, blink_start_time
     if result.face_blendshapes:
         blendshapes = result.face_blendshapes[0]
         left_eye_blink = blendshapes[9].score 
         right_eye_blink = blendshapes[10].score
+        
         current_blink = (left_eye_blink > 0.45 or right_eye_blink > 0.45)
         blink_detected = current_blink
         curr_time = time.time()
@@ -246,14 +250,12 @@ class SetupWizard:
         frame = tk.Frame(self.root)
         frame.pack(pady=10)
         
-        # Finger Ratios Setup
         tk.Label(frame, text="Left Click (Index) Ratio:", font=("Helvetica", 13)).grid(row=0, column=0, pady=8, padx=10, sticky="e")
         tk.Entry(frame, textvariable=self.left_var, font=("Helvetica", 13), width=10).grid(row=0, column=1, pady=8)
         
         tk.Label(frame, text="Right Click (Middle) Ratio:", font=("Helvetica", 13)).grid(row=1, column=0, pady=8, padx=10, sticky="e")
         tk.Entry(frame, textvariable=self.right_var, font=("Helvetica", 13), width=10).grid(row=1, column=1, pady=8)
         
-        # FIX: Added editable configurations for eye timeouts and delay metrics
         tk.Label(frame, text="Eye Gesture Timeout (s):", font=("Helvetica", 13)).grid(row=2, column=0, pady=8, padx=10, sticky="e")
         tk.Entry(frame, textvariable=self.timeout_var, font=("Helvetica", 13), width=10).grid(row=2, column=1, pady=8)
         
@@ -333,7 +335,7 @@ if __name__ == "__main__":
     )
     hand_detector = vision.HandLandmarker.create_from_options(hand_options)
     
-    # --- REVERTED BACK TO LIVE_STREAM ASYNC ---
+    # Face Model Setup (LIVE_STREAM Async Running Mode)
     face_options = vision.FaceLandmarkerOptions(
         base_options=python.BaseOptions(model_asset_path=face_model_path),
         running_mode=vision.RunningMode.LIVE_STREAM,
@@ -361,7 +363,9 @@ if __name__ == "__main__":
 
     prev_x, prev_y = None, None
     smoothing_factor = 4 
-    deadzone = 4 
+    
+    #  Dropped deadzone down from 4 to 1 
+    deadzone = 1 
     base_sensitivity = 3.5 
 
     left_held, right_held = False, False
@@ -379,7 +383,7 @@ if __name__ == "__main__":
     # 3. RUN MAIN LOOP
     try:
         while True:
-            # --- HOTKEYS CHECK  ---
+            # --- HOTKEYS CHECKED IMMEDIATELY ---
             current_d_state = keyboard.is_pressed('ctrl+alt+d')
             if current_d_state and not last_d_state:
                 show_debug = not show_debug
@@ -393,7 +397,7 @@ if __name__ == "__main__":
                 active_hand = "Left" if active_hand == "Right" else "Right"
             last_h_state = current_h_state
 
-            # Hidden Bizarre Combo to Unlock Eye Engine Permanently / easter egg
+            # Hidden Bizarre Combo to Unlock Eye Engine Permanently
             if not eye_engine_active:
                 if keyboard.is_pressed('ctrl') and keyboard.is_pressed('alt') and keyboard.is_pressed('shift') and keyboard.is_pressed('=') and keyboard.is_pressed('home'):
                     eye_engine_active = True
@@ -414,7 +418,6 @@ if __name__ == "__main__":
                 timestamp = int(time.time() * 1000)
                 face_detector.detect_async(mp_image, timestamp)
                 
-                # Parse Eye Gestures using modified parameters from GUI entries safely
                 now = time.time()
                 if blink_counter > 0 and (now - last_blink_time > gesture_timeout):
                     if blink_counter == 2:
@@ -494,9 +497,11 @@ if __name__ == "__main__":
                             virtual_x = max(0, min(screen_width, virtual_x + move_x))
                             virtual_y = max(0, min(screen_height, virtual_y + move_y))
                             
-                            # Using direct OS interaction handles seamless drawing lines 
+                            # --- FIX: HARDWARE LEVEL MOUSE INTERRUPT INJECTION ---
+                            # Using win32 mouse_event instead of SetCursorPos ensures drawing engines see 
+                            # active hardware level move interrupts, allowing continuous painting lines.
                             if left_held or right_held:
-                                win32_move_mouse(int(virtual_x), int(virtual_y))
+                                win32_move_mouse(int(virtual_x), int(virtual_y), screen_width, screen_height)
                             else:
                                 try: pyautogui.moveTo(int(virtual_x), int(virtual_y))
                                 except Exception: pass
@@ -571,7 +576,4 @@ if __name__ == "__main__":
             pass
         os._exit(0)
 
-
-
-
-# v4.8
+#v4.9, by arhan
