@@ -242,25 +242,11 @@ ctypes.windll.user32.SetCursorPos()
 
 - Cursor movement automatically switches to kernel-level injection whenever a gesture click is active, enabling smooth digital drawing and CAD workflows without discontinuities.
 
-### v4.8.0 (Current Stable Main)
+### v4.8
+Unified every subsystem into the final production architecture. Integrated direct Windows kernel-level cursor injection (`user32.SetCursorPos`) for uninterrupted drawing, completed the Tkinter calibration wizard, finalized scale-invariant gesture recognition, dual-hand clutch mechanics, Face Blendshape eye tracking, blink-based desktop navigation, touchpad acceleration, low-latency smoothing, audio feedback, automatic MediaPipe model downloading, runtime hand swapping, and graceful resource cleanup.
 
-The culmination of every subsystem developed throughout the project.
-
-**Major Features**
-
-- Direct Windows kernel-level cursor injection (`user32.SetCursorPos`) for uninterrupted drawing.
-- Dual-hand clutch system for infinite virtual workspace.
-- Scale & depth invariant gesture recognition.
-- Interactive Tkinter setup and calibration wizard.
-- Configurable gesture thresholds.
-- Face Blendshape eye-tracking engine.
-- Double/triple blink desktop navigation.
-- Dynamic touchpad acceleration.
-- Low-latency smoothing and debounce framework.
-- Runtime hand swapping.
-- Automatic MediaPipe model downloading.
-- Audio feedback engine.
-- Graceful shutdown and resource cleanup.
+### v4.9 (Current Stable Main)
+Completed the project's final input engine overhaul, introducing reliable continuous drawing support across graphics applications. Improved overall cursor responsiveness, click-and-drag stability, and application compatibility while maintaining the existing low-latency gesture pipeline. With drawing, desktop navigation, calibration, dual-hand clutching, and eye tracking now working together, the system reaches its first fully feature-complete milestone.
 
 ---
 
